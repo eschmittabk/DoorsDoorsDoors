@@ -39,7 +39,7 @@ protected:
 		virtual void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) {};
 
 	UFUNCTION(BlueprintCallable)
-		virtual void InteractionRequested() {};
+		virtual void InteractionRequested(AActor* RequestingActor) {};
 
 	UPROPERTY(EditAnywhere)
 		FText InteractionPrompt;
@@ -47,7 +47,7 @@ protected:
 	UPROPERTY(EditAnywhere, NoClear)
 		UCapsuleComponent* TriggerCapsule = nullptr;
 
-	AActor* InteractingActor = nullptr;
+	TWeakObjectPtr<AActor> InteractingActor = nullptr;
 	bool bActive = true;
 	FDelegateHandle InteractionBinding;
 };

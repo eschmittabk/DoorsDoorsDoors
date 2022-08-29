@@ -96,7 +96,7 @@ void UDoorInteractionComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedCo
 {
 	UE_LOG(LogTemp, Warning, TEXT("UDoorInteractionComponent::OnOverlapBegin"));
 	//we already have somebody interacting, currently we don't support multiple interactions
-	if (InteractingActor || !bActive)
+	if (InteractingActor.IsValid() || !bActive)
 	{
 		return;
 	}
@@ -126,10 +126,10 @@ void UDoorInteractionComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp
 	}
 }
 
-void UDoorInteractionComponent::InteractionRequested()
+void UDoorInteractionComponent::InteractionRequested(AActor* RequestingActor)
 {
 	//ideally we would make sure this is allowed
-	if (InteractingActor)
+	if (InteractingActor.IsValid() && InteractingActor == RequestingActor)
 	{
 		bActive = false;
 		if (TextRenderComponent)

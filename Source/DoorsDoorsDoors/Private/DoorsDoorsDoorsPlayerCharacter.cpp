@@ -41,11 +41,10 @@ void ADoorsDoorsDoorsPlayerCharacter::Tick(float DeltaTime)
 void ADoorsDoorsDoorsPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	FInputActionBinding* Binding;
 	//these functions fire off events
 	//interaction component listens to them
-	Binding = &PlayerInputComponent->BindAction(FName("InteractionStart"), IE_Pressed, this, &ADoorsDoorsDoorsPlayerCharacter::InteractionStartRequested);
-	Binding = &PlayerInputComponent->BindAction(FName("InteractionCancel"), IE_Pressed, this, &ADoorsDoorsDoorsPlayerCharacter::InteractionCancelRequested);
+	PlayerInputComponent->BindAction(FName("InteractionStart"), IE_Pressed, this, &ADoorsDoorsDoorsPlayerCharacter::InteractionStartRequested);
+	PlayerInputComponent->BindAction(FName("InteractionCancel"), IE_Pressed, this, &ADoorsDoorsDoorsPlayerCharacter::InteractionCancelRequested);
 }
 
 void ADoorsDoorsDoorsPlayerCharacter::FellOutOfWorld(const UDamageType& dmgType)
@@ -105,7 +104,10 @@ void ADoorsDoorsDoorsPlayerCharacter::OnDeath(bool IsFellOut)
 		PlayerController->DisableInput(PlayerController);
 	}
 
-	GetWorld()->GetTimerManager().SetTimer(RestartLevelTimerHandle, this, &ADoorsDoorsDoorsPlayerCharacter::OnDeathTimerFinished, TimeRestartLevelAfterDeath, false);
+	if (!RestartLevelTimerHandle.IsValid())
+	{
+		GetWorld()->GetTimerManager().SetTimer(RestartLevelTimerHandle, this, &ADoorsDoorsDoorsPlayerCharacter::OnDeathTimerFinished, TimeRestartLevelAfterDeath, false);
+	}
 }
 
 void ADoorsDoorsDoorsPlayerCharacter::OnDeathTimerFinished()
@@ -119,7 +121,7 @@ void ADoorsDoorsDoorsPlayerCharacter::OnDeathTimerFinished()
 
 void ADoorsDoorsDoorsPlayerCharacter::InteractionStartRequested()
 {
-	OnInteractionStartRequested.Broadcast();
+	OnInteractionStartRequested.Broadcast(this);
 }
 
 void ADoorsDoorsDoorsPlayerCharacter::InteractionCancelRequested()
@@ -132,6 +134,7 @@ void ADoorsDoorsDoorsPlayerCharacter::HandleItemCollected()
 	ItemsCollected++;
 	// Play Effects here.
 	//PC->PlayerCameraManager->PlayCameraShake(CamShake, 1.0f);
+	//GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(CamShake);
 	PC->PlayDynamicForceFeedback(ForceFeedbackIntensity, ForceFeedbackDuration, true, false, true, false,
 		EDynamicForceFeedbackAction::Start);
 

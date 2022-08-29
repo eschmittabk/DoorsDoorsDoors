@@ -18,6 +18,8 @@ public:
 	// Sets default values for this component's properties
 	UDealDamageComponent();
 
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
 	UFUNCTION()
 		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
@@ -48,4 +50,5 @@ protected:
 		UCapsuleComponent* TriggerCapsule;
 
 	bool bActive = true;
+	bool bPlayerOverlapped = false;
 };

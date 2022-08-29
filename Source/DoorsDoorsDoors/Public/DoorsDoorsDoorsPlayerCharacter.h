@@ -12,7 +12,8 @@ class UHealthComponent;
 class UParticleSystemComponent;
 
 //these are input bindings
-DECLARE_MULTICAST_DELEGATE(FInteractionStartRequest);
+//DECLARE_MULTICAST_DELEGATE(FInteractionStartRequest);
+DECLARE_MULTICAST_DELEGATE_OneParam(FInteractionStartRequest, class AActor*);
 DECLARE_MULTICAST_DELEGATE(FInteractionCancelRequest);
 
 UCLASS()
@@ -22,7 +23,7 @@ class DOORSDOORSDOORS_API ADoorsDoorsDoorsPlayerCharacter : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	//AAbstractionPlayerCharacter();
+	//ADoorsDoorsDoorsPlayerCharacter();
 
 	/** Default UObject constructor. */
 	ADoorsDoorsDoorsPlayerCharacter(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
@@ -96,6 +97,7 @@ protected:
 
 	//UPROPERTY(EditAnywhere, Category = "Effects")
 		//TSubclassOf<UCameraShake> CamShake;
+		//TSubclassOf<UMatineeCameraShake> CamShake;
 
 	// Force Feedback values.
 	UPROPERTY(EditAnywhere, Category = "Force Feedback")
