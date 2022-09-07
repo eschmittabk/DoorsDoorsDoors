@@ -78,6 +78,7 @@ protected:
 
 	UPROPERTY()
 		UAudioComponent* AudioComponent = nullptr;
+
 	UPROPERTY()
 		UTextRenderComponent* TextRenderComponent = nullptr;
 };

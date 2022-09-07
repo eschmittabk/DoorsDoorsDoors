@@ -11,7 +11,9 @@ AInteractableDoor::AInteractableDoor()
 	DoorInteractionComponent = CreateDefaultSubobject<UDoorInteractionComponent>(TEXT("DoorInteractionComponent"));
 	if (DoorInteractionComponent->GetTriggerCapsule())
 	{
+		DoorInteractionComponent->GetTriggerCapsule()->SetCapsuleSize(doorRadius, doorHalfHeight);
 		DoorInteractionComponent->GetTriggerCapsule()->SetupAttachment(RootComponent);
+		DoorInteractionComponent->GetTriggerCapsule()->AddRelativeLocation({ deltaXLocation, deltaYLocation, deltaZLocation });
 	}
 
 	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComponent"));

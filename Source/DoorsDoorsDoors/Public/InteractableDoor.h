@@ -33,6 +33,21 @@ protected:
 		UDoorInteractionComponent* DoorInteractionComponent;
 
 	UPROPERTY(EditAnywhere)
+		float doorRadius = 65.0f;
+
+	UPROPERTY(EditAnywhere)
+		float doorHalfHeight = 115.0f;
+
+	UPROPERTY(EditAnywhere)
+		float deltaXLocation = -50.0f;
+
+	UPROPERTY(EditAnywhere)
+		float deltaYLocation = 0.0f;
+
+	UPROPERTY(EditAnywhere)
+		float deltaZLocation = 100.0f;
+
+	UPROPERTY(EditAnywhere)
 		UAudioComponent* AudioComponent;
 	
 };
