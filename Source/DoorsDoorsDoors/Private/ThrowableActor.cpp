@@ -170,6 +170,11 @@ EEffectType AThrowableActor::GetEffectType()
 	return EffectType;
 }
 
+bool AThrowableActor::GetBuffType()
+{
+	return bIsBuff;
+}
+
 bool AThrowableActor::SetHomingTarget(AActor* Target)
 {
 	if (Target)

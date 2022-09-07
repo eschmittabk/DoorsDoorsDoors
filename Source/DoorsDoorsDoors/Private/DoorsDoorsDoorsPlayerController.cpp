@@ -156,10 +156,10 @@ bool ADoorsDoorsDoorsPlayerController::CanProcessRequest() const
 
 void ADoorsDoorsDoorsPlayerController::RequestMoveForward(float AxisValue)
 {
-	if (!CanProcessRequest())
-	{
-		return;
-	}
+	//if (!CanProcessRequest())
+	//{
+	//	return;
+	//}
 
 	if (AxisValue != 0.f)
 	{
@@ -171,10 +171,10 @@ void ADoorsDoorsDoorsPlayerController::RequestMoveForward(float AxisValue)
 
 void ADoorsDoorsDoorsPlayerController::RequestMoveRight(float AxisValue)
 {
-	if (!CanProcessRequest())
-	{
-		return;
-	}
+	//if (!CanProcessRequest())
+	//{
+	//	return;
+	//}
 
 	if (AxisValue != 0.f)
 	{
@@ -277,10 +277,10 @@ void ADoorsDoorsDoorsPlayerController::RequestStopPullorAimObject()
 
 void ADoorsDoorsDoorsPlayerController::RequestJump()
 {
-	if (!CanProcessRequest())
-	{
-		return;
-	}
+	//if (!CanProcessRequest())
+	//{
+	//	return;
+	//}
 
 	if (ADoorsDoorsDoorsPlayerCharacter* DDDPlayer = Cast<ADoorsDoorsDoorsPlayerCharacter>(GetCharacter()))
 	{

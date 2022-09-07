@@ -426,7 +426,7 @@ void ADoorsDoorsDoorsPlayerCharacter::ResetThrowableObject()
 
 void ADoorsDoorsDoorsPlayerCharacter::RequestUseObject()
 {
-	ApplyEffect_Implementation(ThrowableActor->GetEffectType(), true);
+	ApplyEffect_Implementation(ThrowableActor->GetEffectType(), ThrowableActor->GetBuffType());
 	ThrowableActor->Destroy();
 	ResetThrowableObject();
 }
@@ -737,10 +737,13 @@ void ADoorsDoorsDoorsPlayerCharacter::ApplyEffect_Implementation(EEffectType Eff
 		bIsEffectBuff ? SprintSpeed *= 2 : GetCharacterMovement()->DisableMovement();
 		break;
 	case EEffectType::Jump:
-		// Implement Jump Buff/Debuff
+		bIsEffectBuff ? GetCharacterMovement()->JumpZVelocity *= 2 : GetCharacterMovement()->SetJumpAllowed(false);
 		break;
 	case EEffectType::Power:
-		// Implement Power Buff/Debuff
+		bIsEffectBuff ? bIsInvincible =  true : bIsWeakened = true;
+		break;
+	case EEffectType::Health:
+		bIsEffectBuff ? HealthComponent->SetCurrentHealth(HealthComponent->GetCurrentHealth() + 25.0f) : DamageHandlerComponent->TakeFireDamage(10.0f, 2.0f, 0.5f);
 		break;
 	default:
 		break;
@@ -770,10 +773,13 @@ void ADoorsDoorsDoorsPlayerCharacter::EndEffect()
 		bIsEffectBuff ? SprintSpeed /= 2, RequestSprintEnd() : GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 		break;
 	case EEffectType::Jump:
-		// Implement Jump Buff/Debuff
+		bIsEffectBuff ? GetCharacterMovement()->JumpZVelocity /= 2 : GetCharacterMovement()->SetJumpAllowed(true);
 		break;
 	case EEffectType::Power:
-		// Implement Power Buff/Debuff
+		bIsEffectBuff ? bIsInvincible = false : bIsWeakened = false;
+	case EEffectType::Health:
+		// Health buff doesn't wear off, it just heals or a few seconds of sustained damage
+		break;
 		break;
 	default:
 		break;
@@ -782,8 +788,17 @@ void ADoorsDoorsDoorsPlayerCharacter::EndEffect()
 
 float ADoorsDoorsDoorsPlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
+	if (bIsInvincible)
+	{
+		DamageAmount = 0;
+	}
+	if (bIsWeakened)
+	{
+		DamageAmount *= 2;
+	}
+	
 	float Damage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	UE_LOG(LogTemp, Warning, TEXT("AAbstractionPlayerCharacter::TakeDamage Damage %.2f"), Damage);
+	UE_LOG(LogTemp, Warning, TEXT("ADoorsDoorsDoorsPlayerCharacter::TakeDamage Damage %.2f"), Damage);
 	if (HealthComponent && !HealthComponent->IsDead())
 	{
 		HealthComponent->TakeDamage(Damage);

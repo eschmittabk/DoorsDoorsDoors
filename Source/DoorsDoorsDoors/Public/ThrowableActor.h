@@ -37,6 +37,8 @@ public:
 
 	EEffectType GetEffectType();
 
+	bool GetBuffType();
+
 protected:
 	enum class EState
 	{
@@ -70,5 +72,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Effect")
 		EEffectType EffectType = EEffectType::None;
+
+	UPROPERTY(EditAnywhere, Category = "Effect")
+		bool bIsBuff = true;
 };
 

@@ -279,6 +279,8 @@ private:
 	void EndEffect();
 
 	bool bIsUnderEffect = false;
+	bool bIsInvincible = false;
+	bool bIsWeakened = false;
 	bool bIsEffectBuff = false;
 
 	float DefautlEffectCooldown = 5.0f;

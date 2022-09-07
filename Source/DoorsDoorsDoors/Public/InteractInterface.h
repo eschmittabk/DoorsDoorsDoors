@@ -20,6 +20,7 @@ enum class EEffectType : uint8
 	Speed			UMETA(DisplayName = "SpeedBuff"),
 	Jump    		UMETA(DisplayName = "JumpBuff"),
 	Power    		UMETA(DisplayName = "PowerBuff"),
+	Health			UMETA(DisplayName = "HealthPack"),
 };
 
 class DOORSDOORSDOORS_API IInteractInterface
