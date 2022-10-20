@@ -17,6 +17,7 @@
 #include "HealthComponent.h"
 #include "DamageHandlerComponent.h"
 #include "ThrowableActor.h"
+#include "BombActor.h"
 
 #include "VisualLogger/VisualLogger.h"
 
@@ -416,7 +417,13 @@ void ADoorsDoorsDoorsPlayerCharacter::ServerFinishThrow_Implementation()
 void ADoorsDoorsDoorsPlayerCharacter::ResetThrowableObject()
 {
 	//drop object
-	if (ThrowableActor)
+	ABombActor* Bbomb = Cast<ABombActor>(ThrowableActor);
+	if (Bbomb)
+	{
+		Bbomb->Drop();
+		Bbomb->Ignite();
+	}
+	else if (ThrowableActor)
 	{
 		ThrowableActor->Drop();
 	}

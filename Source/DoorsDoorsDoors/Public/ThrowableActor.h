@@ -61,6 +61,9 @@ protected:
 		bool SetHomingTarget(AActor* Target);
 
 	UPROPERTY(EditAnywhere)
+		float HomingTargetVelocity = 750.0f;
+
+	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* StaticMeshComponent;
 	UPROPERTY(EditAnywhere)
 		UProjectileMovementComponent* ProjectileMovementComponent;

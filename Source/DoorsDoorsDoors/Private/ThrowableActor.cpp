@@ -90,7 +90,7 @@ void AThrowableActor::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, UPri
 		}
 	}
 
-	ProjectileMovementComponent->HomingTargetComponent = nullptr;
+	//ProjectileMovementComponent->HomingTargetComponent = nullptr;
 	PullActor = nullptr;
 }
 
@@ -186,7 +186,7 @@ bool AThrowableActor::SetHomingTarget(AActor* Target)
 				ProjectileMovementComponent->SetUpdatedComponent(ThrowableSceneComponent);
 				ProjectileMovementComponent->Activate(true);
 				ProjectileMovementComponent->HomingTargetComponent = TWeakObjectPtr<USceneComponent>(SceneComponent);
-				ProjectileMovementComponent->Velocity = FVector(0.0f, 0.0f, 1000.0f);
+				ProjectileMovementComponent->Velocity = FVector(0.0f, 0.0f, HomingTargetVelocity);
 				return true;
 			}
 		}

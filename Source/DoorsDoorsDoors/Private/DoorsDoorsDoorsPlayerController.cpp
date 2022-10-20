@@ -131,6 +131,7 @@ void ADoorsDoorsDoorsPlayerController::SetupInputComponent()
 
 		InputComponent->BindAction(TEXT("PullorAimObject"), EInputEvent::IE_Pressed, this, &ADoorsDoorsDoorsPlayerController::RequestPullorAimObject);
 		InputComponent->BindAction(TEXT("PullorAimObject"), EInputEvent::IE_Released, this, &ADoorsDoorsDoorsPlayerController::RequestStopPullorAimObject);
+		InputComponent->BindAction(TEXT("Drop"), EInputEvent::IE_Released, this, &ADoorsDoorsDoorsPlayerController::ResetDropObject);
 
 		InputComponent->BindAxis(TEXT("MoveForward/Backward"), this, &ADoorsDoorsDoorsPlayerController::RequestMoveForward);
 		InputComponent->BindAxis(TEXT("MoveRight/Left"), this, &ADoorsDoorsDoorsPlayerController::RequestMoveRight);
@@ -235,6 +236,24 @@ void ADoorsDoorsDoorsPlayerController::RequestThrowObject(float AxisValue)
 		{
 			LastAxis = 0.0f;
 		}
+	}
+}
+
+void ADoorsDoorsDoorsPlayerController::ResetDropObject()
+{
+	//if (!CanProcessRequest())
+	//{
+	//	return;
+	//}
+
+	if (ADoorsDoorsDoorsPlayerCharacter* DDDPlayer = Cast<ADoorsDoorsDoorsPlayerCharacter>(GetCharacter()))
+	{
+		if (DDDPlayer->IsAiming())
+		{
+			DDDPlayer->RequestStopAim();
+		}
+	
+		DDDPlayer->ResetThrowableObject();
 	}
 }
 

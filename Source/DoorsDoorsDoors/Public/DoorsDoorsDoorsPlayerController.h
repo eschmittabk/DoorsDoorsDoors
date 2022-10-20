@@ -53,6 +53,7 @@ protected:
     void RequestLookRight(float AxisValue);
     void RequestThrowObject(float AxisValue);
 
+    void ResetDropObject();
     void RequestPullorAimObject();
     void RequestStopPullorAimObject();
 
